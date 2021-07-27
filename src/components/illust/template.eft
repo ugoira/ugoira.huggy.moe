@@ -1,0 +1,28 @@
+>figure
+    #contenteditable = false
+    >div
+		>a
+			#target = "_id"
+			#download
+			#href = {{url}}
+			>video
+				#src = {{url}}
+				#preload = "auto"
+				#autoplay
+				#loop
+				#mute
+    >span
+        #contenteditable = true
+    >figcaption
+		>a
+			#href = https://www.pixiv.net/artworks/{{id}}
+			#target = #_{{id}}
+			. {{title}}
+		. /
+		>a
+			#href = https://www.pixiv.net/users/{{author_id}}
+			#target = #_{{author_id}}
+			. {{author_name}}
+        >br
+		. {{tags_joined}}
+        >br

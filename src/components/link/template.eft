@@ -1,0 +1,9 @@
+. [ 
+>a
+	#href = {{href}}
+	#target = _blank
+	#rel = noopener noreferrer
+	#style = line-height:1.5rem;
+	.{{text}}
+. ]
+>br

@@ -1,0 +1,20 @@
+{
+  "name": "ugoira.huggy.moe",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "author": "huggy",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "ef-core": "^0.13.10"
+  },
+  "devDependencies": {
+    "eft-parser": "^0.13.5",
+    "rollup-plugin-eft": "^0.13.10",
+    "vite": "^2.3.8"
+  }
+}
