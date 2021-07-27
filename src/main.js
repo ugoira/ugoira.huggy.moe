@@ -56,7 +56,9 @@ const getIllusts = async ({ state, value }) => {
 			}
 		} catch (error) {
 			app.description[0].$data.description = 'error, please contact me'
-			app.description[1] = new Description('wergth')
+			// can't listen array, need push action
+			// lazy.......
+			// app.description[1] = new Description('t.me')
 			alert('Something went wroing, try again later or contact me')
 			console.error(error)
 		}
