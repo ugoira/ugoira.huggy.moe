@@ -8,7 +8,7 @@
 			#placeholder = input pixiv illust's id or URL, Support multi url
 			%value = {{input}}
 			@keypress.prevent.13 = getIllusts:{{input}}
-	>div.button
+	>button.button
 		. {{ convertStatus=Convert}}
 		@click = getIllusts:{{input}}
 	>div

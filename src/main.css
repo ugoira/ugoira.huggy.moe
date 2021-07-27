@@ -32,7 +32,7 @@ textarea {
   padding: 0.8rem 1.6rem;
   border-radius: 4px;
   box-sizing: border-box;
-  border-bottom: 1px solid #b65686;
+  border: 0;
   text-decoration: none;
   cursor: pointer;
   margin-top: 10px;

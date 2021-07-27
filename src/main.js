@@ -29,30 +29,38 @@ app.links.push(
 	new Link('Telegram bot', 'https://t.me/Pixiv_bot'),
 	new Link('Twitter', 'https://twitter.com/wosign'),
 )
+app.description = [
+	new Description('')
+]
 const getIllusts = async ({ state, value }) => {
-	if (state.description.length == 0 || state.description[0].$data && state.description[0].$data.description !== 'Converting') {
+	if(value.length < 6){
+		return false
+	}
+	if (state.description.length == 0 || state.description[0].$data.description !== 'Converting') {
+		app.description[0].$data.description = 'Converting'
+		app.$data.convertStatus = 'Converting'
 		app.illust = []
-		app.description = [
-			new Description('Converting')
-		]
 		try {
 			let data = (await r.post('illusts', {
-				id: value
+				id: value,
+				type: 'ugoira'
 			})).data
 			console.log(data.ids)
-			app.description = []
 			if (data.ids && data.ids.length > 0) {
-				app.description.push(new Description("Click video to download~"))
+				app.description[0].$data.description = 'Click video to download~'
 				data.data.forEach(d => {
 					app.illust.push(new Illust(d))
 				})
 			} else {
-				app.description.push(new Description("No pixiv link found"))
+				app.description[0].$data.description = 'No pixiv link found'
 			}
 		} catch (error) {
-			alert('Something went wroing, try again later')
+			app.description[0].$data.description = 'error, please contact me'
+			app.description[1] = new Description('wergth')
+			alert('Something went wroing, try again later or contact me')
 			console.error(error)
 		}
+		app.$data.convertStatus = 'Convert'
 	}
 }
 app.$methods.getIllusts = getIllusts
