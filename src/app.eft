@@ -5,7 +5,7 @@
 	>div
 		>textarea
 			#autofocus
-			#placeholder = input pixiv illust's id or URL, Support multi url
+			#placeholder = input pixiv illust's id or URL, Support multi urls.
 			%value = {{input}}
 			@keypress.prevent.13 = getIllusts:{{input}}
 	>button.button

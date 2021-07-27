@@ -34,6 +34,7 @@ app.description = [
 ]
 const getIllusts = async ({ state, value }) => {
 	if(value.length < 6){
+		app.description[0].$data.description = 'invalid input'
 		return false
 	}
 	if (state.description.length == 0 || state.description[0].$data.description !== 'Converting') {
