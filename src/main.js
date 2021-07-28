@@ -30,6 +30,7 @@ app.links.push(
 	new Link('Twitter', 'https://twitter.com/wosign'),
 )
 app.description = [
+	new Description(''),
 	new Description('')
 ]
 const getIllusts = async ({ state, value }) => {
@@ -39,6 +40,7 @@ const getIllusts = async ({ state, value }) => {
 	}
 	if (!state || state.description[0].$data.description !== 'Converting') {
 		app.description[0].$data.description = 'Converting'
+		app.description[1].$data.description = ''
 		app.$data.convertStatus = 'Converting'
 		app.illust = []
 		try {
@@ -52,23 +54,24 @@ const getIllusts = async ({ state, value }) => {
 				data.data.forEach(d => {
 					app.illust.push(new Illust(d))
 				})
-				history.pushState('', 'Pixiv Ugoira Converter', '#' + data.ids.join(' '))
+				history.pushState('', 'Pixiv Ugoira Converter', '?' + data.ids.join('-'))
 			} else {
 				app.description[0].$data.description = 'No pixiv ugoira link found'
 			}
 		} catch (error) {
 			app.description[0].$data.description = 'Error, please contact me'
-			// can't listen array, need push action
-			// lazy.......
-			// app.description[1] = new Description('t.me')
+			app.description[0].$data.description = 'on Github issue or Telegram'
 			alert('Something went wroing, try again later or contact me')
 			console.error(error)
 		}
 		app.$data.convertStatus = 'Convert'
 	}
+	if(!state){
+		app.description[1].$data.description = 'If the video does not play automatically, please click the Convert button.'
+	}
 }
-if (location.hash) {
-	let hash = decodeURIComponent(location.hash.replace('#', ''))
+if (location.search !== "") {
+	let hash = location.search.replace('?', '')
 	app.$data.input = hash
 	// due to autoplay limit, need user click web content
 	getIllusts({ value: hash })
