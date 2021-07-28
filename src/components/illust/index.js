@@ -5,7 +5,7 @@ export default class Illust extends Tpl {
 		super({
 			$data: {
 				...illust,
-				tags_joined: illust.tags.join(' #'),
+				tags_joined: '#' + illust.tags.join(' #'),
 			}
 		})
 	}

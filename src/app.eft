@@ -1,16 +1,17 @@
 < copy from https://github.com/ClassicOldSong/todomvc-efjs/blob/b29e776aeba9b10665c580aea495c025ef6fa7c1/src/templates/tmpls/todoapp.eft
 >center
 	>h1
-		.Pixiv ugoira converter
+		.Pixiv ugoira(GIF) Converter
 	>div
 		>textarea
 			#autofocus
-			#placeholder = input pixiv illust's id or URL, Support multi urls.
+			#placeholder = Input pixiv illust's id or URL, support multi urls.
 			%value = {{input}}
 			@keypress.prevent.13 = getIllusts:{{input}}
-	>button.button
-		. {{ convertStatus=Convert}}
-		@click = getIllusts:{{input}}
+	>div
+		>button.button
+			. {{ convertStatus=Convert}}
+			@click = getIllusts:{{input}}
 	>div
 		+description
 	>div.links

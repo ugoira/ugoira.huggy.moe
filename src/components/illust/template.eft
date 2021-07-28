@@ -1,28 +1,32 @@
 >figure
-    #contenteditable = false
     >div
 		>a
-			#target = "_id"
+			#target={{id}}
 			#download
-			#href = {{url}}
+			#href={{url}}
 			>video
-				#src = {{url}}
-				#preload = "auto"
-				#autoplay
-				#loop
-				#mute
+				#src={{url}}
+				#preload=auto
+				#autoplay=autoplay
+				#loop=loop
+				#muted=muted
     >span
-        #contenteditable = true
     >figcaption
 		>a
 			#href = https://www.pixiv.net/artworks/{{id}}
 			#target = #_{{id}}
-			. {{title}}
+			#rel = noopener noreferrer
+			.{{title}}
 		. /
 		>a
 			#href = https://www.pixiv.net/users/{{author_id}}
 			#target = #_{{author_id}}
+			#rel = noopener noreferrer
 			. {{author_name}}
-        >br
-		. {{tags_joined}}
-        >br
+		>br
+		>div
+			>a.button.button2
+				. open in telegram
+				#href=tg://resolve?domain=pixiv_bot&&start={{id}}
+		>p
+			.{{tags_joined}}

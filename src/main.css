@@ -41,3 +41,9 @@ textarea {
 .center {
   display: block;
 }
+.button2 {
+  background: #25a3e1;
+  font-size: 1rem;
+  line-height: 1rem;
+  padding: 0.5rem 0.5rem;
+}

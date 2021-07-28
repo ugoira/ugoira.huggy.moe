@@ -7,9 +7,10 @@ https://user-images.githubusercontent.com/6511667/127163644-2213e8a4-ca71-46bc-9
 
 > The easiest way to convert pixiv ugoira to mp4  
 > 转换 pixiv 动图的最简单方法  
+> 轉換 pixiv 動圖的最簡單方法  
 > pixivの動いらを変換する最も簡単な方法
 
-build with [ef.js](https://github.com/TheNeuronProject/ef.js) and vite.js
+build with [ef.js](https://github.com/TheNeuronProject/ef.js) and [vite.js](https://vitejs.dev)
 
 # dev
 

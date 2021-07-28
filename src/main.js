@@ -33,11 +33,11 @@ app.description = [
 	new Description('')
 ]
 const getIllusts = async ({ state, value }) => {
-	if(value.length < 6){
-		app.description[0].$data.description = 'invalid input'
+	if (value.length < 6) {
+		app.description[0].$data.description = 'Invalid input'
 		return false
 	}
-	if (state.description.length == 0 || state.description[0].$data.description !== 'Converting') {
+	if (!state || state.description[0].$data.description !== 'Converting') {
 		app.description[0].$data.description = 'Converting'
 		app.$data.convertStatus = 'Converting'
 		app.illust = []
@@ -52,11 +52,12 @@ const getIllusts = async ({ state, value }) => {
 				data.data.forEach(d => {
 					app.illust.push(new Illust(d))
 				})
+				history.pushState('', 'Pixiv Ugoira Converter', '#' + data.ids.join(' '))
 			} else {
-				app.description[0].$data.description = 'No pixiv link found'
+				app.description[0].$data.description = 'No pixiv ugoira link found'
 			}
 		} catch (error) {
-			app.description[0].$data.description = 'error, please contact me'
+			app.description[0].$data.description = 'Error, please contact me'
 			// can't listen array, need push action
 			// lazy.......
 			// app.description[1] = new Description('t.me')
@@ -65,6 +66,12 @@ const getIllusts = async ({ state, value }) => {
 		}
 		app.$data.convertStatus = 'Convert'
 	}
+}
+if (location.hash) {
+	let hash = decodeURIComponent(location.hash.replace('#', ''))
+	app.$data.input = hash
+	// due to autoplay limit, need user click web content
+	getIllusts({ value: hash })
 }
 app.$methods.getIllusts = getIllusts
 // Mount app to document
