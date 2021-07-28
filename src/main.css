@@ -23,6 +23,7 @@ textarea {
   width: 95%;
   min-height: 66px;
   max-width: 550px;
+  background: rgba(0, 0, 0, 0);
 }
 .button {
   display: inline-block;
@@ -46,4 +47,15 @@ textarea {
   font-size: 1rem;
   line-height: 1rem;
   padding: 0.5rem 0.5rem;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #393939;
+  }
+  figcaption,
+  p,
+  textarea,
+  h1 {
+    color: #eaeaea;
+  }
 }
