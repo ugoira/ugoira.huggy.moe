@@ -27,6 +27,6 @@
 		>div
 			>a.button.button2
 				. open in telegram
-				#href=tg://resolve?domain=pixiv_bot&&start={{id}}
+				#href=tg://resolve?domain=Pixiv_bot&&start={{id}}
 		>p
 			.{{tags_joined}}

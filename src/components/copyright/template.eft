@@ -1,2 +1,6 @@
 >div.copyright
-	.Copyright &u00a9 huggy, 2021
+	>span
+		.Copyright &u00a9 huggy, 2021
+	>br
+	>span
+		.The illust(s) is copyrighted by pixiv and the author.

@@ -14,15 +14,13 @@ let r = axios.create({
 	baseURL: 'https://ugoira.huggy.moe/api',
 	//withCredentials: true
 })
-// Prepare a custom component scope for later use
-const scope = { Copyright }
 
 // Pause rendering
 inform()
 
 // Create an instance for template `Hello`
 const app = new App({
-}, scope)
+}, { Copyright })
 // Add links
 app.links.push(
 	new Link('Github', 'https://github.com/makeding/ugoira.huggy.moe'),
@@ -60,13 +58,13 @@ const getIllusts = async ({ state, value }) => {
 			}
 		} catch (error) {
 			app.description[0].$data.description = 'Error, please contact me'
-			app.description[0].$data.description = 'on Github issue or Telegram'
+			app.description[1].$data.description = 'on Github issue or Telegram'
 			alert('Something went wroing, try again later or contact me')
 			console.error(error)
 		}
 		app.$data.convertStatus = 'Convert'
 	}
-	if(!state){
+	if (!state) {
 		app.description[1].$data.description = 'If the video does not play automatically, please click the Convert button.'
 	}
 }
