@@ -49,10 +49,16 @@ const getIllusts = async ({ state, value }) => {
 			console.log(data.ids)
 			if (data.ids && data.ids.length > 0) {
 				app.description[0].$data.description = 'Click video to download~'
-				data.data.forEach(d => {
-					app.illust.push(new Illust(d))
-				})
 				history.pushState('', 'Pixiv Ugoira Converter', '?' + data.ids.join('-'))
+				// lazy load with s**t method....
+				for (let i = 0; i < data.data.length; i++) {
+					setTimeout(() => {
+						app.illust.push(new Illust(data.data[i]))
+					}, 50 * i)
+				}
+				// data.data.forEach(d => {
+				// 	app.illust.push(new Illust(d))
+				// })
 			} else {
 				app.description[0].$data.description = 'No pixiv ugoira link found'
 			}
