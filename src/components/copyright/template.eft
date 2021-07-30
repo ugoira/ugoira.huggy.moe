@@ -1,6 +1,6 @@
 >div.copyright
 	>span
-		.Copyright &u00a9 huggy, 2021
+		.Copyright &u00a9 huggy, {{year}}
 	>br
 	>span
 		.The illust(s) is copyrighted by pixiv and the author.
