@@ -1,0 +1,12 @@
+>div
+    #class=i_{{id}}
+    >a
+        #target={{id}}
+        #download
+        #href={{url}}
+        >video
+            #src={{url}}
+            #preload=auto
+            #autoplay=autoplay
+            #loop=loop
+            #muted=muted

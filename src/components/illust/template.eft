@@ -1,15 +1,8 @@
->figure
-    >div
-		>a
-			#target={{id}}
-			#download
-			#href={{url}}
-			>video
-				#src={{url}}
-				#preload=auto
-				#autoplay=autoplay
-				#loop=loop
-				#muted=muted
+>figure.illust
+	>div
+		#id=s{{sid}}
+		#style={{Style}}
+		-video
     >span
     >figcaption
 		>a
@@ -25,7 +18,7 @@
 			. {{author_name}}
 		>br
 		>div
-			>a.button.button2
+			>a.button.loaderTg
 				. open in telegram
 				#href=tg://resolve?domain=Pixiv_bot&&start={{id}}
 		>p

@@ -42,11 +42,37 @@ textarea {
 .center {
   display: block;
 }
-.button2 {
+.loaderTg {
   background: #25a3e1;
   font-size: 1rem;
   line-height: 1rem;
   padding: 0.5rem 0.5rem;
+}
+
+.placeholder {
+  background: rgba(0, 0, 0, 0.12);
+  height: 500px;
+  width: 500px;
+  overflow: hidden;
+  position: relative;
+}
+.placeholder::after {
+  -webkit-animation: loading 1.5s infinite;
+  animation: loading 1.5s infinite;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(-100%);
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0),
+    hsla(0, 0%, 100%, 0.3),
+    hsla(0, 0%, 100%, 0)
+  );
 }
 @media (prefers-color-scheme: dark) {
   body {
@@ -57,5 +83,36 @@ textarea {
   textarea,
   h1 {
     color: #eaeaea;
+  }
+  .placeholder::after {
+    background: linear-gradient(
+      90deg,
+      hsla(0, 0%, 100%, 0),
+      hsla(0, 0%, 100%, 0.05),
+      hsla(0, 0%, 100%, 0)
+    );
+  }
+}
+@media screen and (max-width: 600px) {
+  .placeholder {
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+@media screen and (max-width: 300px) {
+  .placeholder {
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
+@-webkit-keyframes loading {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes loading {
+  to {
+    transform: translateX(100%);
   }
 }

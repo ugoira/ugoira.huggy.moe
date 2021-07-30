@@ -7,14 +7,14 @@
 			#autofocus
 			#placeholder = Input pixiv illust's id or URL, support multi urls.
 			%value = {{input}}
-			@keypress.prevent.13 = getIllusts:{{input}}
+			@keypress.prevent.13 = getIllusts:{{input}}keyflag
 	>div
 		>button.button
 			. {{ convertStatus=Convert}}
 			@click = getIllusts:{{input}}
 	>div
 		+description
-	>div.links
+	>div#illusts.links
 		+illust
 	>p.links
 		+links
