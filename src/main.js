@@ -153,9 +153,9 @@ const getIllusts = async ({ state, value }) => {
 				// preloadLink.type = 'video/mp4'
 				// document.getElementsByTagName('head')[0].appendChild(preloadLink)
 			})
-			if (data.ids.length > 1){
+			if (data.ids.length > 1) {
 				document.getElementById('download').style = 'display:block;'
-			}else{
+			} else {
 				document.getElementById('download').style = ''
 			}
 		} else {
@@ -201,8 +201,19 @@ setInterval(() => {
 	}
 }, 1000)
 const downloadAllIllusts = async () => {
+	if (app.description[0].$data.description.includes('Downloading')) {
+		return true
+	}
+	app.description[0].$data.description = 'Downloading files'
+	app.description[1].$data.description = ''
 	let zip = new JSZip()
-	await asyncForEach(illustData, async illust => {
+	// X S S
+	zip.file('readme.html', `<html><head><meta charset="UTF-8" /><title>Pixiv Ugoira converter</title></head><body><p>This folder is converted & downloaded by <a target="_blank" href="https://ugoira.huggy.moe">ugoira.huggy.moe</a></p><br>illusts link:<br>${illustIdsData.map(u => {
+		let url = `https://www.pixiv.net/artworks/${u}`
+		return `<a target="_blank" href="${url}">${url}</a>`
+	}).join('<br>')}<br><br>You can view this folder's all illusts online on <a href="https://ugoira.huggy.moe/?${illustIdsData.join('-')}">this link</a>`)
+	await asyncForEach(illustData, async (illust, i) => {
+		app.description[1].$data.description = `${i}/${illustIdsData.length}`
 		let ugoira_data = await download_file(illust.url)
 		if (!ugoira_data) {
 			alert('Some files cannot be downloaded')
@@ -210,7 +221,9 @@ const downloadAllIllusts = async () => {
 		zip.file(`${illust.id}-${illust.title}.mp4`, ugoira_data)
 	})
 	zip.generateAsync({ type: 'blob' }).then(function (content) {
-		saveAs(content, `ugoira.huggy.moe_${new Date().toJSON().replace('T', ' ').replace('Z', ' ').split('.')[0]}.zip`);
+		saveAs(content, `ugoira.huggy.moe_${new Date().toLocaleString()}.zip`);
+		app.description[0].$data.description = 'Downloaded'
+		app.description[1].$data.description = ''
 	})
 }
 
