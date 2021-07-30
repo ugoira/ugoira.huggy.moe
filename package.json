@@ -1,6 +1,6 @@
 {
   "name": "ugoira.huggy.moe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
-    "ef-core": "^0.13.10"
+    "ef-core": "^0.13.10",
+    "jszip": "^3.7.0"
   },
   "devDependencies": {
     "eft-parser": "^0.13.5",

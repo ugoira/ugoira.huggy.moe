@@ -9,6 +9,7 @@ import Illust from './components/illust'
 import IllustVideo from './components/illust/video'
 import IllustVideoLoader from './components/illust/loader'
 import Description from './components/description'
+import JSZip from "jszip"
 // Import helper function and version info from `ef-core`
 import { inform, exec } from 'ef-core'
 import axios from 'axios'
@@ -76,14 +77,13 @@ const videoLoader = (sid, count = 4) => {
 			app.illust[i].video = videoPlayerLoaders[i]
 		}
 	})
-	play()
 	return true
 }
 const play = () => {
 	try {
 		let videosDom = document.getElementsByTagName('video')
 		for (let i = 0; i <= videosDom.length; i++) {
-			if (videosDom[i] && videosDom[0].paused) {
+			if (videosDom[i] && videosDom[i].paused) {
 				videosDom[i].play()
 			}
 		}
@@ -130,7 +130,6 @@ const getIllusts = async ({ state, value }) => {
 				console.error(error)
 			}
 		}
-		console.log(data.ids)
 		if (data.ids && data.ids.length > 0) {
 			app.description[0].$data.description = 'Click video to download~'
 			history.pushState('', 'Pixiv Ugoira Converter', '?' + data.ids.join('-'))
@@ -154,6 +153,11 @@ const getIllusts = async ({ state, value }) => {
 				// preloadLink.type = 'video/mp4'
 				// document.getElementsByTagName('head')[0].appendChild(preloadLink)
 			})
+			if (data.ids.length > 1){
+				document.getElementById('download').style = 'display:block;'
+			}else{
+				document.getElementById('download').style = ''
+			}
 		} else {
 			app.description[0].$data.description = 'No pixiv ugoira link found'
 		}
@@ -162,6 +166,20 @@ const getIllusts = async ({ state, value }) => {
 	if (!state) {
 		app.description[1].$data.description = 'If the video does not play automatically, please click the Play button.'
 		app.$data.convertStatus = 'Play'
+	}
+}
+const download_file = async (url, tryTime = 0) => {
+	if (tryTime > 5) {
+		return false
+	}
+	try {
+		let data = await (await axios.get(url, {
+			responseType: 'blob'
+		})).data
+		return data
+	} catch (error) {
+		console.error(error)
+		return await download_file(url, tryTime + 1)
 	}
 }
 let last_Y = 0
@@ -182,6 +200,19 @@ setInterval(() => {
 		}
 	}
 }, 1000)
+const downloadAllIllusts = async () => {
+	let zip = new JSZip()
+	await asyncForEach(illustData, async illust => {
+		let ugoira_data = await download_file(illust.url)
+		if (!ugoira_data) {
+			alert('Some files cannot be downloaded')
+		}
+		zip.file(`${illust.id}-${illust.title}.mp4`, ugoira_data)
+	})
+	zip.generateAsync({ type: 'blob' }).then(function (content) {
+		saveAs(content, `ugoira.huggy.moe_${new Date().toJSON().replace('T', ' ').replace('Z', ' ').split('.')[0]}.zip`);
+	})
+}
 
 
 if (location.search !== '') {
@@ -191,6 +222,7 @@ if (location.search !== '') {
 	getIllusts({ value: hash })
 }
 app.$methods.getIllusts = getIllusts
+app.$methods.downloadAllIllusts = downloadAllIllusts
 // Mount app to document
 app.$mount({ target: document.body })
 
@@ -199,5 +231,31 @@ exec()
 async function asyncForEach(array, callback) {
 	for (let index = 0; index < array.length; index++) {
 		await callback(array[index], index, array)
+	}
+}
+
+// copy from https://davidwalsh.name/javascript-zip
+function saveAs(blob, filename) {
+	if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
+		return navigator.msSaveOrOpenBlob(blob, fileName)
+	} else if (typeof navigator.msSaveBlob !== 'undefined') {
+		return navigator.msSaveBlob(blob, fileName)
+	} else {
+		var elem = window.document.createElement('a')
+		elem.href = window.URL.createObjectURL(blob)
+		elem.download = filename
+		elem.style = 'display:none;opacity:0;color:transparent;';
+		(document.body || document.documentElement).appendChild(elem)
+		if (typeof elem.click === 'function') {
+			elem.click()
+		} else {
+			elem.target = '_blank'
+			elem.dispatchEvent(new MouseEvent('click', {
+				view: window,
+				bubbles: true,
+				cancelable: true
+			}))
+		}
+		URL.revokeObjectURL(elem.href)
 	}
 }

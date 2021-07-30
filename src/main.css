@@ -77,6 +77,10 @@ textarea {
 .illust {
   max-width: 600px;
 }
+#download {
+  background-color: #43a047;
+  display: none;
+}
 @media (prefers-color-scheme: dark) {
   body {
     background: #393939;

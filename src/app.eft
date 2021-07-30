@@ -13,6 +13,11 @@
 			. {{ convertStatus=Convert}}
 			@click = getIllusts:{{input}}
 	>div
+		>button.button
+			#id=download
+			.Download all mp4
+			@click = downloadAllIllusts:
+	>div
 		+description
 	>div#illusts.links
 		+illust
