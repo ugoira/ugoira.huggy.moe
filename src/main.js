@@ -1,7 +1,5 @@
-// Import style
 import './main.css'
 
-// Import templates
 import App from './app.eft'
 import Copyright from './components/copyright'
 import Link from './components/link'
@@ -9,13 +7,14 @@ import Illust from './components/illust'
 import IllustVideo from './components/illust/video'
 import IllustVideoLoader from './components/illust/loader'
 import Description from './components/description'
-import JSZip from "jszip"
+
 // Import helper function and version info from `ef-core`
 import { inform, exec } from 'ef-core'
 import axios from 'axios'
-let r = axios.create({
+import JSZip from "jszip"
+const r = axios.create({
 	baseURL: 'https://ugoira.huggy.moe/api',
-	//withCredentials: true
+	// withCredentials: true
 })
 
 // Pause rendering
@@ -48,9 +47,7 @@ let videoPlayers = [
 	new IllustVideo(),
 	new IllustVideo(),
 ]
-let videoPlayerLoaders = [
-
-]
+let videoPlayerLoaders = []
 /**
  * lazy load <video>
  * @param {*} sid 
@@ -92,6 +89,9 @@ const play = () => {
 	}
 }
 const getIllusts = async ({ state, value }) => {
+	if (app.description[0].$data.description.includes('Downloading')) {
+		return false
+	}
 	if (value.includes('keyflag')) {
 		app.$data.input += ' '
 		app.$data.input += '\n'
@@ -100,7 +100,6 @@ const getIllusts = async ({ state, value }) => {
 		app.description[0].$data.description = 'Invalid input'
 		return false
 	}
-
 	if (app.$data.convertStatus == 'Play') {
 		play()
 		app.$data.convertStatus = 'Convert'
