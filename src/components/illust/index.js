@@ -6,7 +6,7 @@ export default class Illust extends Tpl {
 			$data: {
 				...illust,
 				tags_joined: '#' + illust.tags.join(' #'),
-				// Style: (illust.imgs_.size[0].height ? `height: ${illust.imgs_.size[0].height}px;` : '') + (illust.imgs_.size[0].width ? `width: ${illust.imgs_.size[0].width}px;` : '')
+				//Style: (illust.imgs_.size[0].height ? `max-height: ${illust.imgs_.size[0].height}px;` : '') + (illust.imgs_.size[0].width ? `max-width: ${illust.imgs_.size[0].width}px;` : '')
 			}
 		})
 	}

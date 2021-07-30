@@ -41,27 +41,55 @@ let videoPlayers = [
 	new IllustVideo(),
 	new IllustVideo(),
 	new IllustVideo(),
-	new IllustVideo()
+	new IllustVideo(),
+	new IllustVideo(),
+	new IllustVideo(),
+	new IllustVideo(),
+	new IllustVideo(),
+]
+let videoPlayerLoaders = [
+
 ]
 /**
  * lazy load <video>
  * @param {*} sid 
  * @param {*} count 
  */
-const videoLoader = (sid, count = 2) => {
+const videoLoader = (sid, count = 4) => {
 	app.illust.forEach((illust, i) => {
 		illust = illust.$data
 		if (Math.abs(sid - i) <= count) {
-			let ii = sid - i + 2
+			let ii = sid - i + count
 			if (!app.illust[i].video || !app.illust[i].video.$data.id) {
 				app.illust[i].video = videoPlayers[ii]
 				app.illust[i].video.$data.url = illust.url
 				app.illust[i].video.$data.id = illust.id
 			}
 		} else {
-			app.illust[i].video = new IllustVideoLoader()
+			if (!videoPlayerLoaders[i]) {
+				illustData[i].width = `${document.getElementById(`s${i}`).clientWidth}px`
+				illustData[i].height = `${document.getElementById(`s${i}`).clientHeight}px`
+				videoPlayerLoaders[i] = new IllustVideoLoader({
+					loaderStyle: `width: ${illustData[i].width};height: ${illustData[i].height};`
+				})
+			}
+			app.illust[i].video = videoPlayerLoaders[i]
 		}
 	})
+	play()
+	return true
+}
+const play = () => {
+	try {
+		let videosDom = document.getElementsByTagName('video')
+		for (let i = 0; i <= videosDom.length; i++) {
+			if (videosDom[i] && videosDom[0].paused) {
+				videosDom[i].play()
+			}
+		}
+	} catch (error) {
+
+	}
 }
 const getIllusts = async ({ state, value }) => {
 	if (value.includes('keyflag')) {
@@ -72,17 +100,12 @@ const getIllusts = async ({ state, value }) => {
 		app.description[0].$data.description = 'Invalid input'
 		return false
 	}
+
 	if (app.$data.convertStatus == 'Play') {
-		let videosDom = document.getElementsByTagName('video')
-		for (let i = 0; i <= videosDom.length; i++) {
-			if (videosDom[i]) {
-				videosDom[i].play()
-			}
-		}
+		play()
 		app.$data.convertStatus = 'Convert'
 		return
-	}
-	if (state || (app.$data.convertStatus !== 'Converting' && app.$data.convertStatus !== 'Play')) {
+	} else if (state || (app.$data.convertStatus !== 'Converting' && app.$data.convertStatus !== 'Play')) {
 		app.description[0].$data.description = ''
 		app.description[1].$data.description = ''
 		app.$data.convertStatus = 'Converting'
@@ -116,11 +139,13 @@ const getIllusts = async ({ state, value }) => {
 			data.data.forEach((illust, sid) => {
 				illust.sid = sid
 				app.illust.push(new Illust(illust))
-				app.illust[sid].video = new IllustVideoLoader()
-				// load 5 illusts in default
+				if (data.ids.length > 9) {
+					app.illust[sid].video = new IllustVideoLoader()
+				}
 				setTimeout(() => {
-					videoLoader(2, 2)
-				}, 500);
+					videoLoader(4)
+				}, 300)
+				// load 5 illusts in default
 				// // many browser support it
 				// let preloadLink = document.createElement('link')
 				// preloadLink.rel = 'preload'
@@ -139,22 +164,24 @@ const getIllusts = async ({ state, value }) => {
 		app.$data.convertStatus = 'Play'
 	}
 }
-let scrollFlagger = true
-document.addEventListener("scroll", function (x, xx) {
-	let Y = window.scrollY
-	if (Y.toString().split('.')[0].substr(-1, 1) % 2 == 0) {
-		scrollFlagger = false
+let last_Y = 0
+setInterval(() => {
+	let Y = window.scrollY.toString().split('.')[0]
+	if (Y == last_Y) {
+		return
+	}
+	if (illustIdsData.length > 9) {
 		let illustsDom = document.getElementsByClassName('illust')
 		for (let i = 0; i < illustsDom.length; i++) {
 			const illustDom = illustsDom[i]
 			if (illustDom.offsetTop > Y) {
-				videoLoader(i, 2)
-				scrollFlagger = true
+				last_Y = Y
+				videoLoader(i, 4)
 				break
 			}
 		}
 	}
-})
+}, 1000)
 
 
 if (location.search !== '') {

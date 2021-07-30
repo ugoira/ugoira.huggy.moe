@@ -1,5 +1,6 @@
 >div
     #class=i_{{id}}
+    #id=s{{sid}}
     >a
         #target={{id}}
         #download

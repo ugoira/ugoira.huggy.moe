@@ -74,6 +74,9 @@ textarea {
     hsla(0, 0%, 100%, 0)
   );
 }
+.illust {
+  max-width: 600px;
+}
 @media (prefers-color-scheme: dark) {
   body {
     background: #393939;
