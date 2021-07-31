@@ -10,7 +10,7 @@
 			@keypress.prevent.13 = getIllusts:{{input}}keyflag
 	>div
 		>button.button
-			. {{ convertStatus=Convert}}
+			. {{ convertButtonText=Convert}}
 			@click = getIllusts:{{input}}
 	>div
 		>button.button
