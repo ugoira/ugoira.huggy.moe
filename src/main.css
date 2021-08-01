@@ -11,7 +11,7 @@ a {
 }
 
 .copyright {
-  color: #666;
+  color: rgb(200, 205, 219);
   font-size: 90%;
 }
 video {
@@ -21,8 +21,7 @@ textarea {
   margin: auto;
   max-width: 550px;
   width: 95%;
-  min-height: 66px;
-  max-width: 550px;
+  min-height: 105px;
   background: rgba(0, 0, 0, 0);
 }
 .button {
@@ -39,10 +38,8 @@ textarea {
   margin-top: 10px;
   transition: 0.3s;
 }
-.center {
-  display: block;
-}
-.loaderTg {
+
+.buttonTg {
   background: #25a3e1;
   font-size: 1rem;
   line-height: 1rem;
