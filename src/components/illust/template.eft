@@ -18,7 +18,7 @@
 			. {{author_name}}
 		>br
 		>div
-			>a.button.loaderTg
+			>a.button.buttonTg
 				. open in telegram
 				#href=tg://resolve?domain=Pixiv_bot&&start={{id}}
 		>p

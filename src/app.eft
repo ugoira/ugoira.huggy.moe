@@ -5,7 +5,7 @@
 	>div
 		>textarea
 			#autofocus
-			#placeholder = Input pixiv illust's id or URL, support multi urls.
+			#placeholder = Input pixiv illust's id or URL, support multi urls.&nexample:&nhttps://www.pixiv.net/artworks/:id&nhttps://pixiv.net/artworks/:id&nhttps://pixiv.net/i/:id&nhttps://pixiv.net/member_illust.php?illustr_id=:id&n:id
 			%value = {{input}}
 			@keypress.prevent.13 = getIllusts:{{input}}keyflag
 	>div
