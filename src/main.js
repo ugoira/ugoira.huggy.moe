@@ -12,6 +12,7 @@ import Description from './components/description'
 import { inform, exec } from 'ef-core'
 import axios from 'axios'
 import JSZip from "jszip"
+
 const r = axios.create({
 	baseURL: 'https://ugoira.huggy.moe/api',
 	// withCredentials: true
@@ -98,15 +99,12 @@ const play = () => {
 	}
 }
 const getIllusts = async ({ state, value }) => {
-	if (webStatus == 'd') {
+	if (['d', 'c', 'p'].includes(webStatus)) {
 		return false
 	}
 	if (value.includes('keyflag')) {
 		app.$data.input += ' '
 		app.$data.input += '\n'
-	}
-	if(webStatus == 'p'){
-		return
 	}
 	if (value.length < 6) {
 		app.description[0].$data.description = 'Invalid input'
@@ -242,24 +240,26 @@ document.addEventListener('click', clickPlayEvent)
 /**
  * listen scroll event
  */
-setInterval(() => {
-	// float to integer(string) ~~maybe useful~~
-	let Y = window.scrollY.toString().split('.')[0]
-	if (Y == lastY) {
-		return
-	}
-	if (illustIdsData.length > 9) {
-		let illustsDom = document.getElementsByClassName('illust')
-		for (let i = 0; i < illustsDom.length; i++) {
-			const illustDom = illustsDom[i]
-			if (illustDom.offsetTop > Y) {
-				lastY = Y
-				videoLoader(i, 4)
-				break
+const scrollEventTimerF = () => {
+	let Y = Math.floor(window.scrollY)
+	lastY = Y
+	setTimeout(() => {
+		if (Y == lastY) {
+			if (illustIdsData.length > 9) {
+				let illustsDom = document.getElementsByClassName('illust')
+				for (let i = 0; i < illustsDom.length; i++) {
+					const illustDom = illustsDom[i]
+					if (illustDom.offsetTop > Y) {
+						lastY = Y
+						videoLoader(i, 4)
+						break
+					}
+				}
 			}
 		}
-	}
-}, 1000)
+	}, 300)
+}
+document.addEventListener('scroll', scrollEventTimerF)
 
 app.$methods.getIllusts = getIllusts
 app.$methods.downloadAllIllusts = downloadAllIllusts
@@ -283,11 +283,11 @@ function saveAs(blob, filename) {
 	} else if (typeof navigator.msSaveBlob !== 'undefined') {
 		return navigator.msSaveBlob(blob, fileName)
 	} else {
-		var elem = window.document.createElement('a')
+		let elem = window.document.createElement('a')
 		elem.href = window.URL.createObjectURL(blob)
 		elem.download = filename
 		elem.style = 'display:none;opacity:0;color:transparent;'
-		(document.body || document.documentElement).appendChild(elem)
+		document.body.appendChild(elem)
 		if (typeof elem.click === 'function') {
 			elem.click()
 		} else {
