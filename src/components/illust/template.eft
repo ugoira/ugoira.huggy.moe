@@ -18,7 +18,26 @@
 			. {{author_name}}
 		>br
 		>div
-			>a.button.buttonTg
+			>a.button.buttondw
+				. mp4
+				#href={{url}}
+				#download
+				#style=background:#66BB6A;
+		>div
+			>a.button.buttondw
+				. gif (high)
+				#download
+				#href=/api/gif/{{id}}/high
+			>a.button.buttondw
+				. gif (medium)
+				#download
+				#href=/api/gif/{{id}}/medium
+			>a.button.buttondw
+				. gif (small)
+				#download
+				#href=/api/gif/{{id}}/small
+		>div
+			>a.button.buttontg
 				. open in telegram
 				#href=tg://resolve?domain=Pixiv_bot&&start={{id}}
 		>p

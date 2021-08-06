@@ -88,13 +88,18 @@ const videoLoader = (sid, count = 4) => {
 const play = () => {
 	try {
 		let videosDom = document.getElementsByTagName('video')
-		for (let i = 0; i <= videosDom.length; i++) {
-			if (videosDom[i] && videosDom[i].paused) {
-				videosDom[i].play()
+		if (videosDom.length > 0) {
+			for (let i = 0; i <= videosDom.length; i++) {
+				if (videosDom[i] && videosDom[i].paused) {
+					videosDom[i].play()
+				}
+			}
+			document.removeEventListener('click', clickPlayEvent)
+			if (webStatus == 'p') {
+				webStatus = 'n'
+				app.$data.convertButtonText = 'Convert'
 			}
 		}
-		webStatus = 'n'
-		app.$data.convertButtonText = 'Convert'
 	} catch (error) {
 
 	}
@@ -235,7 +240,6 @@ if (location.search !== '') {
 
 const clickPlayEvent = () => {
 	play()
-	document.removeEventListener('click', clickPlayEvent)
 }
 document.addEventListener('click', clickPlayEvent)
 /**

@@ -39,11 +39,20 @@ textarea {
   transition: 0.3s;
 }
 
-.buttonTg {
+.buttontg {
   background: #25a3e1;
   font-size: 1rem;
   line-height: 1rem;
   padding: 0.5rem 0.5rem;
+}
+
+.buttondw {
+  background: #F06292;
+  font-size: 1rem;
+  line-height: 1rem;
+  padding: 0.5rem 0.5rem;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .placeholder {
