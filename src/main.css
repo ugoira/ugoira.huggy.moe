@@ -4,15 +4,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 99vh;
+  max-width: 100%;
+}
+.main {
+  flex: 1 0 auto;
+  max-width: 100%;
+}
 a {
   color: #ff69b4;
   text-decoration: none;
 }
 
-.copyright {
+.footer {
   color: rgb(200, 205, 219);
-  font-size: 90%;
 }
 video {
   max-width: 100%;
@@ -110,6 +119,12 @@ textarea {
   .placeholder {
     max-width: 300px;
     max-height: 300px;
+  }
+  .dldot {
+    display: flex;
+  }
+  textarea{
+    max-width: 99%;
   }
 }
 @media screen and (max-width: 300px) {

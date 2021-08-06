@@ -23,16 +23,16 @@
 				#href={{url}}
 				#download
 				#style=background:#66BB6A;
-		>div
-			>a.button.buttondw
+			>span.dldot
+			>a.button.buttondw.gifdl
 				. gif (high)
 				#download
 				#href=/api/gif/{{id}}/high
-			>a.button.buttondw
+			>a.button.buttondw.gifdl
 				. gif (medium)
 				#download
 				#href=/api/gif/{{id}}/medium
-			>a.button.buttondw
+			>a.button.buttondw.gifdl
 				. gif (small)
 				#download
 				#href=/api/gif/{{id}}/small

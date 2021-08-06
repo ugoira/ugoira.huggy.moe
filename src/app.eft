@@ -1,26 +1,45 @@
 < copy from https://github.com/ClassicOldSong/todomvc-efjs/blob/b29e776aeba9b10665c580aea495c025ef6fa7c1/src/templates/tmpls/todoapp.eft
->center
-	>h1
-		.Pixiv Ugoira(GIF) Converter
-	>div
-		>textarea
-			#autofocus
-			#placeholder = Input pixiv illust's id or URL, support multi urls.&nexample:&nhttps://www.pixiv.net/artworks/:id&nhttps://pixiv.net/artworks/:id&nhttps://pixiv.net/i/:id&nhttps://pixiv.net/member_illust.php?illustr_id=:id&n:id
-			%value = {{input}}
-			@keypress.prevent.13 = getIllusts:{{input}}keyflag
-	>div
-		>button.button
-			. {{ convertButtonText=Convert}}
-			@click = getIllusts:{{input}}
-	>div
-		>button.button
-			#id=download
-			.Download all mp4
-			@click = downloadAllIllusts:
-	>div
-		+description
-	>div#illusts.links
-		+illust
-	>p.links
-		+links
-	>Copyright
+>div.center
+	>div.main
+		>p
+			#style=font-size:2rem;
+			.Pixiv Ugoira(GIF) Converter
+		>div
+			>textarea
+				#autofocus
+				#placeholder = Input pixiv illust's id or URL, support multi urls.&nexample:&nhttps://www.pixiv.net/artworks/:id&nhttps://pixiv.net/artworks/:id&nhttps://pixiv.net/i/:id&nhttps://pixiv.net/member_illust.php?illustr_id=:id&n:id
+				%value = {{input}}
+				@keypress.prevent.13 = getIllusts:{{input}}keyflag
+		>div
+			>button.button
+				. {{ convertButtonText=Convert}}
+				@click = getIllusts:{{input}}
+		>div
+			>button.button
+				#id=download
+				.Download all mp4
+				@click = downloadAllIllusts:
+		>div
+			+description
+		>div#illusts.links
+			+illust
+		>div
+			>p
+				>br
+				.21世紀には GIF は使わないでください。
+				>br
+				.GIF は大、色も失われます。
+				>br
+				>br
+				.Today is a modern Internet world, do not use .gif
+				>br
+				.gif format is large than mp4 and lost a lot of colors.
+				>br
+				>br
+				.在21世纪请不要使用 GIF 格式，
+				>br
+				.GIF 文件非常大，还会丢失色彩。
+	>div.footer
+		>p.links
+			+links
+		>Copyright

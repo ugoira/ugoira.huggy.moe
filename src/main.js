@@ -36,7 +36,7 @@ app.description = [
 ]
 let illustData = []
 let illustIdsData = []
-let lastInput = null
+let lastInput = ''
 
 // webStatus n => normal 
 //			 p => show play button
@@ -98,6 +98,7 @@ const play = () => {
 			if (webStatus == 'p') {
 				webStatus = 'n'
 				app.$data.convertButtonText = 'Convert'
+				app.description[1].$data.description = ''
 			}
 		}
 	} catch (error) {
@@ -126,7 +127,7 @@ const getIllusts = async ({ state, value }) => {
 			data: illustData,
 			ids: illustIdsData
 		}
-		if (lastInput != value) {
+		if (lastInput != value.replace(/\s\n/g,'')) {
 			try {
 				data = (await r.post('illusts', {
 					id: value,
@@ -134,7 +135,7 @@ const getIllusts = async ({ state, value }) => {
 				})).data
 				illustIdsData = data.ids
 				illustData = data.data
-				lastInput = value
+				lastInput = value.replace(/\s\n/g,'')
 			} catch (error) {
 				app.description[0].$data.description = 'Error, please contact me'
 				app.description[1].$data.description = 'on Github issue or Telegram'
@@ -164,7 +165,7 @@ const getIllusts = async ({ state, value }) => {
 				// document.getElementsByTagName('head')[0].appendChild(preloadLink)
 			})
 			if (data.ids.length > 1) {
-				document.getElementById('download').style = 'display:block;'
+				document.getElementById('download').style = 'display:inline-block;'
 			} else {
 				document.getElementById('download').style = ''
 			}

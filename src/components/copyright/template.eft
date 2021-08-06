@@ -1,5 +1,5 @@
-	>div.copyright
-		>span
-			.Copyright &u00a9 huggy, {{year}}
-			>br
-			.All illust(s) is copyrighted by pixiv and the author.
+>div.copyright
+	>span
+		.Copyright &u00a9 huggy, {{year}}
+		>br
+		.All illust(s) is copyrighted by pixiv and the author.
