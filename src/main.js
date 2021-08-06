@@ -73,12 +73,13 @@ const videoLoader = (sid, count = 4) => {
 				app.illust[i].video.$data.url = illust.url
 				app.illust[i].video.$data.id = illust.id
 			}
-		} else {
+		} else if (!app.illust[i].video || !app.illust[i].video.$data.loaderStyle) {
+			if (!videoPlayerLoaders[i]) {
+				videoPlayerLoaders[i] = new IllustVideoLoader()
+			}
 			illustData[i].width = `${document.getElementById(`s${i}`).clientWidth}px`
 			illustData[i].height = `${document.getElementById(`s${i}`).clientHeight}px`
-			videoPlayerLoaders[i] = new IllustVideoLoader({
-				loaderStyle: `width: ${illustData[i].width};height: ${illustData[i].height};`
-			})
+			videoPlayerLoaders[i].$data.loaderStyle = `width: ${illustData[i].width};height: ${illustData[i].height};`
 			app.illust[i].video = videoPlayerLoaders[i]
 		}
 	})
@@ -112,7 +113,7 @@ const getIllusts = async ({ state, value }) => {
 	}
 	if (state || (webStatus == 'n')) {
 		webStatus = 'c'
-		app.description[0].$data.description = 'Converting'
+		app.description[0].$data.description = ''
 		app.description[1].$data.description = ''
 		app.$data.convertButtonText = 'Converting'
 		app.illust = []
