@@ -26,9 +26,14 @@ const app = new App({
 }, { Copyright })
 // Add links
 app.links.push(
-	new Link('Github', 'https://github.com/makeding/ugoira.huggy.moe'),
-	new Link('Telegram bot', 'https://t.me/Pixiv_bot'),
+	new Link('Telegram bot', 'tg://resolve?domain=Pixiv_bot'),
+	new Description(''),
+	new Link('Github (web)', 'https://github.com/makeding/ugoira.huggy.moe'),
+	new Link('Github (api)', 'https://github.com/my-telegram-bots/Pixiv_bot'),
+	new Description(''),
 	new Link('Twitter', 'https://twitter.com/wosign'),
+	new Link('Telegram', 'tg://resolve?domain=makeding'),
+	new Link('Email', 'mailto:ugoira@huggy.moe'),
 )
 app.description = [
 	new Description(''),
@@ -127,7 +132,7 @@ const getIllusts = async ({ state, value }) => {
 			data: illustData,
 			ids: illustIdsData
 		}
-		if (lastInput != value.replace(/\s\n/g,'')) {
+		if (lastInput != value.replace(/\s\n/g, '')) {
 			try {
 				data = (await r.post('illusts', {
 					id: value,
@@ -135,7 +140,7 @@ const getIllusts = async ({ state, value }) => {
 				})).data
 				illustIdsData = data.ids
 				illustData = data.data
-				lastInput = value.replace(/\s\n/g,'')
+				lastInput = value.replace(/\s\n/g, '')
 			} catch (error) {
 				app.description[0].$data.description = 'Error, please contact me'
 				app.description[1].$data.description = 'on Github issue or Telegram'

@@ -91,6 +91,7 @@ textarea {
 }
 .illust {
   max-width: 600px;
+  margin: auto;
 }
 #download {
   background-color: #43a047;
