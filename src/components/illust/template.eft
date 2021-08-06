@@ -25,9 +25,9 @@
 				#style=background:#66BB6A;
 			>span.dldot
 			>a.button.buttondw.gifdl
-				. gif (high)
+				. gif (large)
 				#download
-				#href=/api/gif/{{id}}/high
+				#href=/api/gif/{{id}}/large
 			>a.button.buttondw.gifdl
 				. gif (medium)
 				#download
