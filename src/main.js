@@ -41,7 +41,6 @@ app.description = [
 ]
 let illustData = []
 let illustIdsData = []
-let lastInput = ''
 
 // webStatus n => normal 
 //			 p => show play button
@@ -118,37 +117,44 @@ const getIllusts = async ({ state, value }) => {
 		app.$data.input += ' '
 		app.$data.input += '\n'
 	}
-	illustIdsData = get_pixiv_ids(value).illust
-	if (illustIdsData.length === 0) {
+	let localIllustIdsData = get_pixiv_ids(value).illust
+	if (localIllustIdsData.length === 0) {
 		app.description[0].$data.description = 'Invalid input'
 		app.description[1].$data.description = 'Check that the content you entered contains pixiv\'s link.'
 		return false
 	}
-	if (state || (webStatus == 'n')) {
+
+	if (state || webStatus == 'n') {
 		webStatus = 'c'
 		app.description[0].$data.description = ''
 		app.description[1].$data.description = ''
 		app.$data.convertButtonText = 'Converting'
+		if (JSON.stringify(localIllustIdsData) === JSON.stringify(illustIdsData)) {
+			play()
+			setTimeout(() => {
+				webStatus = 'n'
+				app.$data.convertButtonText = 'Convert'
+			}, 500)
+			return
+		}
+		illustIdsData = localIllustIdsData
 		app.illust = []
 		let data = {
-			data: illustData,
-			ids: illustIdsData
+			data: [],
+			ids: []
 		}
-		if (lastInput != value.replace(/\s\n/g, '')) {
-			try {
-				data = (await r.post('illusts', {
-					id: value,
-					type: 'ugoira'
-				})).data
-				illustIdsData = data.ids
-				illustData = data.data
-				lastInput = value.replace(/\s\n/g, '')
-			} catch (error) {
-				app.description[0].$data.description = 'Error, please contact me'
-				app.description[1].$data.description = 'on Github issue or Telegram'
-				alert('Something went wroing, try again later or contact me')
-				console.error(error)
-			}
+		try {
+			data = (await r.post('illusts', {
+				id: illustIdsData.join('-'),
+				type: 'ugoira'
+			})).data
+			illustIdsData = data.ids
+			illustData = data.data
+		} catch (error) {
+			app.description[0].$data.description = 'Error, please contact me'
+			app.description[1].$data.description = 'on Github issue or Telegram'
+			alert('Something went wroing, try again later or contact me')
+			console.error(error)
 		}
 		if (data.ids && data.ids.length > 0) {
 			app.description[0].$data.description = 'Click video to download~'

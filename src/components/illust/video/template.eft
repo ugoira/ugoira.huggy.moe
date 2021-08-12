@@ -1,13 +1,10 @@
 >div
-    #class=i_{{id}}
-    #id=s{{sid}}
     >a
-        #target={{id}}
-        #download
+        #download={{id}}
         #href={{url}}
         >video
             #src={{url}}
             #preload=auto
-            #autoplay=autoplay
-            #loop=loop
-            #muted=muted
+            #autoplay
+            #loop
+            #muted
