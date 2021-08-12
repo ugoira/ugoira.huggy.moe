@@ -70,6 +70,7 @@ textarea {
   width: 500px;
   overflow: hidden;
   position: relative;
+  margin: auto;
 }
 .placeholder::after {
   -webkit-animation: loading 1.5s infinite;
@@ -127,11 +128,17 @@ textarea {
   textarea{
     max-width: 99%;
   }
+  video {
+    max-width: 80%;
+  }
 }
 @media screen and (max-width: 300px) {
   .placeholder {
     max-width: 100px;
     max-height: 100px;
+  }
+  video {
+    max-width: 99%;
   }
 }
 @-webkit-keyframes loading {

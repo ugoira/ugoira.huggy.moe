@@ -118,8 +118,10 @@ const getIllusts = async ({ state, value }) => {
 		app.$data.input += ' '
 		app.$data.input += '\n'
 	}
-	if (value.length < 6) {
+	illustIdsData = get_pixiv_ids(value).illust
+	if (illustIdsData.length === 0) {
 		app.description[0].$data.description = 'Invalid input'
+		app.description[1].$data.description = 'Check that the content you entered contains pixiv\'s link.'
 		return false
 	}
 	if (state || (webStatus == 'n')) {
@@ -239,7 +241,7 @@ const downloadAllIllusts = async () => {
 
 // when url with params => input data
 if (location.search !== '') {
-	let hash = location.search.replace('?', '-')
+	let hash = location.search.replace('?ids=', '-').replace('?', '-')
 	app.$data.input = hash.replace(/-/g, '\nhttps://www.pixiv.net/artworks/').replace('\n', '')
 	getIllusts({ value: hash })
 }
@@ -311,4 +313,60 @@ function saveAs(blob, filename) {
 		}
 		URL.revokeObjectURL(elem.href)
 	}
+}
+/**
+ * get pixiv ids from text
+ * lite version (only have illust link)
+ * src: https://github.com/my-telegram-bots/Pixiv_bot/blob/master/handlers/telegram/pre_handle.js#L11
+ * @param {*} text 
+ * @returns {}
+ */
+function get_pixiv_ids(text) {
+	let ids = {
+		illust: [],
+		author: [],
+		novel: [],
+		// fanbox: [],
+	}
+	if (text) {
+		let t = text.replace(/-_-/g, ' ').replace(/www\./ig, '').replace(/http:\/\//ig, 'https://').replace(/https:\/\//ig, '\nhttps://').replace(/  /g, ' ').replace(/\+/g, ' ').replace(/\-/g, ' ').replace(/ /g, '\n').replace(/\/en/ig, '/').split('\n')
+		t.forEach(u => {
+			try {
+				if (!u || u.length < 6) {
+					return []
+					// Match url(s)
+				}
+				if (u.includes('novel')) {
+					if (!isNaN(parseInt(u.replace('https://pixiv.net/novel/show.php?id=', '').split('&')[0]))) {
+						ids.novel.push(parseInt(u.replace('https://pixiv.net/novel/show.php?id=', '').split('&')[0]))
+					}
+				}
+				if (u.includes('user')) {
+					if (!isNaN(parseInt(u.replace('https://pixiv.net/users/', '').split('?')[0].split('&')[0]))) {
+						ids.author.push(parseInt(u.replace('https://pixiv.net/users/', '').split('?')[0].split('&')[0]))
+					}
+				}
+				// general search
+				try {
+					let uu = new URL(u).searchParams
+					if (uu.get('illust_id')) {
+						ids.illust.push(parseInt(uu.get('illust_id')))
+					}
+				} catch (error) {
+				}
+				if (u.length > 7 && !isNaN(parseInt(u.replace('#', '').replace('id=', '').replace('id', '')))) {
+					// match #idxxxxxxx #xxxxxxx
+					ids.illust.push(parseInt(u.replace('#', '').replace('id', '').replace('=', '')))
+				} else {
+					throw 'switch to general id matcher'
+				}
+			} catch (error) {
+				let t = u.replace('https://', '').replace('pixiv.net', '').replace('artworks', '').replace('i', '').replace(/\//g, '').split('?')[0].split('#')[0]
+				if (!isNaN(t) && t && t.length === 8) {
+					ids.illust.push(parseInt(t))
+				}
+			}
+		})
+	}
+	return { ...ids }
 }
