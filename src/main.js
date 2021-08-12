@@ -150,7 +150,7 @@ const getIllusts = async ({ state, value }) => {
 		}
 		if (data.ids && data.ids.length > 0) {
 			app.description[0].$data.description = 'Click video to download~'
-			history.pushState('', 'Pixiv Ugoira Converter', '?' + data.ids.join('-'))
+			history.pushState('', 'Pixiv Ugoira Converter', '?ids=' + data.ids.join('-'))
 			illustData = data.data
 			// lazy load with s**t method....
 			data.data.forEach((illust, sid) => {
