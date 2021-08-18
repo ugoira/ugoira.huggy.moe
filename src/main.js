@@ -35,6 +35,7 @@ app.links.push(
 	new Link('Telegram', 'tg://resolve?domain=makeding'),
 	new Link('Email', 'mailto:ugoira@huggy.moe'),
 )
+
 app.description = [
 	new Description(''),
 	new Description('')
@@ -120,7 +121,7 @@ const getIllusts = async ({ state, value }) => {
 	let localIllustIdsData = get_pixiv_ids(value).illust
 	if (localIllustIdsData.length === 0) {
 		app.description[0].$data.description = 'Invalid input'
-		app.description[1].$data.description = 'Check that the content you entered contains pixiv\'s link.'
+		app.description[1].$data.description = 'Check that the content you entered contain pixiv\'s ugoira link(s).'
 		return false
 	}
 
@@ -129,27 +130,28 @@ const getIllusts = async ({ state, value }) => {
 		app.description[0].$data.description = ''
 		app.description[1].$data.description = ''
 		app.$data.convertButtonText = 'Converting'
+		// user clicked covert button but no ids changed
+		// maybe videos are still not autoplay, so I exec .play()
 		if (JSON.stringify(localIllustIdsData) === JSON.stringify(illustIdsData)) {
+			// play
 			play()
+			// fake processing convert button
 			setTimeout(() => {
 				webStatus = 'n'
 				app.$data.convertButtonText = 'Convert'
 			}, 500)
 			return
 		}
-		illustIdsData = localIllustIdsData
-		app.illust = []
+
 		let data = {
 			data: [],
 			ids: []
 		}
 		try {
 			data = (await r.post('illusts', {
-				id: illustIdsData.join('-'),
+				id: localIllustIdsData.join('-'),
 				type: 'ugoira'
 			})).data
-			illustIdsData = data.ids
-			illustData = data.data
 		} catch (error) {
 			app.description[0].$data.description = 'Error, please contact me'
 			app.description[1].$data.description = 'on Github issue or Telegram'
@@ -157,9 +159,12 @@ const getIllusts = async ({ state, value }) => {
 			console.error(error)
 		}
 		if (data.ids && data.ids.length > 0) {
+			illustIdsData = data.ids
+			illustData = data.data
+			app.illust = []
+
 			app.description[0].$data.description = 'Click video to download~'
 			history.pushState('', 'Pixiv Ugoira Converter', '?ids=' + data.ids.join('-'))
-			illustData = data.data
 			// lazy load with s**t method....
 			data.data.forEach((illust, sid) => {
 				illust.sid = sid
@@ -183,6 +188,7 @@ const getIllusts = async ({ state, value }) => {
 				document.getElementById('download').style = ''
 			}
 		} else {
+			app.illust = []
 			app.description[0].$data.description = 'No pixiv ugoira link found'
 			app.description[1].$data.description = 'Make sure pixiv link\'s type is ugoira (動いら)'
 		}
@@ -224,7 +230,7 @@ const downloadAllIllusts = async () => {
 	zip.file('readme.html', `<html><head><meta charset="UTF-8" /><title>Pixiv Ugoira converter</title></head><body><p>This folder is converted & downloaded by <a target="_blank" href="https://ugoira.huggy.moe">ugoira.huggy.moe</a></p><br>illusts link:<br>${illustIdsData.map(u => {
 		let url = `https://www.pixiv.net/artworks/${u}`
 		return `<a target="_blank" href="${url}">${url}</a>`
-	}).join('<br>')}<br><br>You can view this folder's all illusts online on <a href="https://ugoira.huggy.moe/?${illustIdsData.join('-')}">this link</a>`)
+	}).join('<br>')}<br><br>You can view this folder's all illusts online on <a href="https://ugoira.huggy.moe/?ids=${illustIdsData.join('-')}">this link</a>`)
 
 	// download *.mp4 in local browser and compress to *.zip
 	await asyncForEach(illustData, async (illust, i) => {
@@ -237,8 +243,17 @@ const downloadAllIllusts = async () => {
 	})
 	app.description[1].$data.description = 'Compressing'
 	// no need await ? // .then is OK
-	zip.generateAsync({ type: 'blob' }).then(function (content) {
-		saveAs(content, `ugoira.huggy.moe_${new Date().toLocaleString()}.zip`)
+	zip.generateAsync({ type: 'blob' }).then(function (zipbolb) {
+		let dwDom = document.createElement("a")
+		dwDom.setAttribute("href", URL.createObjectURL(zipbolb))
+		dwDom.setAttribute("download", `ugoira.huggy.moe_${new Date().toLocaleString()}.zip`)
+		dwDom.setAttribute("style", "display:none;")
+		dwDom.appendChild(document.createTextNode("dw"))
+		document.body.appendChild(dwDom)
+		dwDom.click()
+		setTimeout(() => {
+			document.body.removeChild(dwDom);
+		}, 2000)
 		webStatus = 'n'
 		app.description[0].$data.description = 'Downloaded'
 		app.description[1].$data.description = ''
@@ -260,6 +275,9 @@ document.addEventListener('click', clickPlayEvent)
  * listen scroll event
  */
 const scrollEventTimerF = () => {
+	if (webStatus === 'c') {
+		return
+	}
 	let Y = Math.floor(window.scrollY)
 	lastY = Y
 	setTimeout(() => {
@@ -295,31 +313,6 @@ async function asyncForEach(array, callback) {
 	}
 }
 
-// copy from https://davidwalsh.name/javascript-zip
-function saveAs(blob, filename) {
-	if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
-		return navigator.msSaveOrOpenBlob(blob, fileName)
-	} else if (typeof navigator.msSaveBlob !== 'undefined') {
-		return navigator.msSaveBlob(blob, fileName)
-	} else {
-		let elem = window.document.createElement('a')
-		elem.href = window.URL.createObjectURL(blob)
-		elem.download = filename
-		elem.style = 'display:none;opacity:0;color:transparent;'
-		document.body.appendChild(elem)
-		if (typeof elem.click === 'function') {
-			elem.click()
-		} else {
-			elem.target = '_blank'
-			elem.dispatchEvent(new MouseEvent('click', {
-				view: window,
-				bubbles: true,
-				cancelable: true
-			}))
-		}
-		URL.revokeObjectURL(elem.href)
-	}
-}
 /**
  * get pixiv ids from text
  * lite version (only have illust link)

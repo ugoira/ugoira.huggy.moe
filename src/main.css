@@ -71,6 +71,7 @@ textarea {
   overflow: hidden;
   position: relative;
   margin: auto;
+  cursor: progress;
 }
 .placeholder::after {
   -webkit-animation: loading 1.5s infinite;
