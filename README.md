@@ -2,6 +2,9 @@
 
 Link: [ugoira.huggy.moe](https://ugoira.huggy.moe)
 
+Youtube: [[1](https://www.youtube.com/watch?v=RaUQsLWaqfI)] [[2](https://www.youtube.com/watch?v=6CzEqOhrKCA)]
+
+
 https://user-images.githubusercontent.com/6511667/127163644-2213e8a4-ca71-46bc-9555-2d92efce0506.mp4
 
 
