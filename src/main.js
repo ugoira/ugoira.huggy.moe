@@ -247,13 +247,10 @@ const downloadAllIllusts = async () => {
 		let dwDom = document.createElement("a")
 		dwDom.setAttribute("href", URL.createObjectURL(zipbolb))
 		dwDom.setAttribute("download", `ugoira.huggy.moe_${new Date().toLocaleString()}.zip`)
-		dwDom.setAttribute("style", "display:none;")
-		dwDom.appendChild(document.createTextNode("dw"))
-		document.body.appendChild(dwDom)
+		// dwDom.setAttribute("style", "display:none;")
+		// dwDom.appendChild(document.createTextNode("dw"))
+		// document.body.appendChild(dwDom)
 		dwDom.click()
-		setTimeout(() => {
-			document.body.removeChild(dwDom);
-		}, 2000)
 		webStatus = 'n'
 		app.description[0].$data.description = 'Downloaded'
 		app.description[1].$data.description = ''
