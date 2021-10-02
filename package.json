@@ -10,12 +10,12 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
-    "ef-core": "^0.13.12",
+    "ef-core": "^0.14.1",
     "jszip": "^3.7.0"
   },
   "devDependencies": {
     "eft-parser": "^0.13.5",
     "rollup-plugin-eft": "^0.13.10",
-    "vite": "^2.5.0"
+    "vite": "^2.6.2"
   }
 }
