@@ -9,13 +9,16 @@
   "author": "huggy",
   "license": "MIT",
   "dependencies": {
+    "autoprefixer": "^10.3.7",
     "axios": "^0.21.1",
-    "ef-core": "^0.14.1",
-    "jszip": "^3.7.0"
+    "ef-core": "^0.14.2",
+    "jszip": "^3.7.0",
+    "postcss": "^8.3.9",
+    "tailwindcss": "^2.2.16"
   },
   "devDependencies": {
     "eft-parser": "^0.13.5",
     "rollup-plugin-eft": "^0.13.10",
-    "vite": "^2.6.2"
+    "vite": "^2.6.3"
   }
 }
