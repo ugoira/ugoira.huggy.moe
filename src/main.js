@@ -43,11 +43,11 @@ app.description = [
 let illustData = []
 let illustIdsData = []
 
-// webStatus n => normal 
+// webState n => normal 
 //			 p => show play button
 //			 d => downloading
 //			 c => converting
-let webStatus = 'n'
+let webState = 'n'
 
 let lastY = 0
 
@@ -100,8 +100,8 @@ const play = () => {
 				}
 			}
 			document.removeEventListener('click', clickPlayEvent)
-			if (webStatus == 'p') {
-				webStatus = 'n'
+			if (webState == 'p') {
+				webState = 'n'
 				app.$data.convertButtonText = 'Convert'
 				app.description[1].$data.description = ''
 			}
@@ -111,7 +111,7 @@ const play = () => {
 	}
 }
 const getIllusts = async ({ state, value }) => {
-	if (['d', 'c', 'p'].includes(webStatus)) {
+	if (['d', 'c', 'p'].includes(webState)) {
 		return false
 	}
 	if (value.includes('keyflag')) {
@@ -125,8 +125,8 @@ const getIllusts = async ({ state, value }) => {
 		return false
 	}
 
-	if (state || webStatus == 'n') {
-		webStatus = 'c'
+	if (state || webState == 'n') {
+		webState = 'c'
 		app.description[0].$data.description = ''
 		app.description[1].$data.description = ''
 		app.$data.convertButtonText = 'Converting'
@@ -137,7 +137,7 @@ const getIllusts = async ({ state, value }) => {
 			play()
 			// fake processing convert button
 			setTimeout(() => {
-				webStatus = 'n'
+				webState = 'n'
 				app.$data.convertButtonText = 'Convert'
 			}, 500)
 			return
@@ -192,11 +192,11 @@ const getIllusts = async ({ state, value }) => {
 			app.description[0].$data.description = 'No pixiv ugoira link found'
 			app.description[1].$data.description = 'Make sure pixiv link\'s type is ugoira (動いら)'
 		}
-		webStatus = 'n'
+		webState = 'n'
 		app.$data.convertButtonText = 'Convert'
 	}
 	if (!state) {
-		webStatus = 'p'
+		webState = 'p'
 		app.description[1].$data.description = 'If the video does not play automatically, please click the Play button.'
 		app.$data.convertButtonText = 'Play'
 	}
@@ -217,10 +217,10 @@ const download_file = async (url, tryTime = 0) => {
 }
 
 const downloadAllIllusts = async () => {
-	if (webStatus == 'd') {
+	if (webState == 'd') {
 		return true
 	}
-	webStatus = 'd'
+	webState = 'd'
 	app.description[0].$data.description = 'Downloading files'
 	app.description[1].$data.description = ''
 	let zip = new JSZip()
@@ -233,6 +233,7 @@ const downloadAllIllusts = async () => {
 	}).join('<br>')}<br><br>You can view this folder's all illusts online on <a href="https://ugoira.huggy.moe/?ids=${illustIdsData.join('-')}">this link</a>`)
 
 	// download *.mp4 in local browser and compress to *.zip
+	// single thread
 	await asyncForEach(illustData, async (illust, i) => {
 		app.description[1].$data.description = `${i}/${illustIdsData.length}`
 		let ugoira_data = await download_file(illust.url)
@@ -246,12 +247,15 @@ const downloadAllIllusts = async () => {
 	zip.generateAsync({ type: 'blob' }).then(function (zipbolb) {
 		let dwDom = document.createElement("a")
 		dwDom.setAttribute("href", URL.createObjectURL(zipbolb))
-		dwDom.setAttribute("download", `ugoira.huggy.moe_${new Date().toLocaleString()}.zip`)
-		// dwDom.setAttribute("style", "display:none;")
-		// dwDom.appendChild(document.createTextNode("dw"))
-		// document.body.appendChild(dwDom)
+		dwDom.setAttribute("download", `${location.hostname}_${new Date().toLocaleString()}.zip`)
+		dwDom.setAttribute("style", "display:none;")
+		dwDom.appendChild(document.createTextNode("dw"))
+		document.body.appendChild(dwDom)
 		dwDom.click()
-		webStatus = 'n'
+		setTimeout(() => {
+			document.body.removeChild(dwDom)
+		}, 2000)
+		webState = 'n'
 		app.description[0].$data.description = 'Downloaded'
 		app.description[1].$data.description = ''
 	})
@@ -272,7 +276,7 @@ document.addEventListener('click', clickPlayEvent)
  * listen scroll event
  */
 const scrollEventTimerF = () => {
-	if (webStatus === 'c') {
+	if (webState === 'c') {
 		return
 	}
 	let Y = Math.floor(window.scrollY)
