@@ -42,4 +42,8 @@
 	>div.footer
 		>p.links
 			+links
-		>Copyright
+		>div.copyright
+			>span
+				.Copyright &u00a9 huggy, 2021
+				>br
+				.All illust(s) is copyrighted by pixiv and the author.
