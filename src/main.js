@@ -1,7 +1,6 @@
 import './main.css'
 
 import App from './app.eft'
-import Copyright from './components/copyright'
 import Link from './components/link'
 import Illust from './components/illust'
 import IllustVideo from './components/illust/video'
@@ -23,7 +22,7 @@ inform()
 
 // Create an instance for template `Hello`
 const app = new App({
-}, { Copyright })
+})
 // Add links
 app.links.push(
 	new Link('Telegram bot', 'tg://resolve?domain=Pixiv_bot'),

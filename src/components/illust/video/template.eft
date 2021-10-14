@@ -2,7 +2,7 @@
     >a
         #download={{id}}
         #href={{url}}
-        >video
+        >video.max-w-full.mx-auto
             #src={{url}}
             #preload=auto
             #autoplay

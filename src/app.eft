@@ -1,8 +1,7 @@
 < copy from https://github.com/ClassicOldSong/todomvc-efjs/blob/b29e776aeba9b10665c580aea495c025ef6fa7c1/src/templates/tmpls/todoapp.eft
->div.center
-	>div.main
-		>p
-			#style=font-size:2rem;
+>div.text-center.flex.flex-col.min-h-screen
+	>div.flex-auto.max-w-full
+		>h1.text-3xl.font-bold
 			.Pixiv Ugoira(GIF) Converter
 		>div
 			>textarea
@@ -10,13 +9,14 @@
 				#placeholder = Input pixiv illust's id or URL, support multi urls.&nexample:&nhttps://www.pixiv.net/artworks/:id&nhttps://pixiv.net/artworks/:id&nhttps://pixiv.net/i/:id&nhttps://pixiv.net/member_illust.php?illustr_id=:id&n:id
 				%value = {{input}}
 				@keypress.prevent.13 = getIllusts:{{input}}keyflag
-		>div
-			>button.button
+		>div.inline-flex.flex-col
+			>a.button.bg-primary
+				#role = button
 				. {{ convertButtonText=Convert}}
 				@click = getIllusts:{{input}}
-		>div
-			>button.button
+			>a.button.bg-sprimary
 				#id=download
+				#role = button
 				.Download all mp4
 				@click = downloadAllIllusts:
 		>div

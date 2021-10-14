@@ -1,68 +1,29 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-}
-.center {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  max-width: 100%;
-}
-.main {
-  flex: 1 0 auto;
-  max-width: 100%;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 a {
-  color: #ff69b4;
   text-decoration: none;
 }
 
 .footer {
   color: rgb(200, 205, 219);
 }
-video {
-  max-width: 100%;
-}
 textarea {
-  margin: auto;
+  @apply mx-auto resize;
   max-width: 550px;
-  width: 95%;
-  min-height: 105px;
+  width: 100%;
+  min-height: 11rem;
   background: rgba(0, 0, 0, 0);
 }
 .button {
-  display: inline-block;
-  font-size: 1.2rem;
-  color: #fff;
-  background-color: #ff69b4;
-  padding: 0.8rem 1.6rem;
-  border-radius: 4px;
-  box-sizing: border-box;
-  border: 0;
-  text-decoration: none;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: 0.3s;
+  @apply inline-block text-white px-2 py-2 my-1 rounded transition duration-200 ease-in-out;
 }
-
 .buttontg {
   background: #25a3e1;
-  font-size: 1rem;
-  line-height: 1rem;
-  padding: 0.5rem 0.5rem;
 }
 
 .buttondw {
-  background: #F06292;
-  font-size: 1rem;
-  line-height: 1rem;
-  padding: 0.5rem 0.5rem;
-  margin-left: 2px;
-  margin-right: 2px;
+  @apply m-px p-1;
 }
 
 .placeholder {
@@ -127,7 +88,7 @@ textarea {
   .dldot {
     display: flex;
   }
-  textarea{
+  textarea {
     max-width: 99%;
   }
   video {

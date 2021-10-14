@@ -5,34 +5,33 @@
 		-video
     >span
     >figcaption
-		>a
-			#href = https://www.pixiv.net/artworks/{{id}}
-			#target = #_{{id}}
-			#rel = noopener noreferrer
-			.{{title}}
-		. /
-		>a
-			#href = https://www.pixiv.net/users/{{author_id}}
-			#target = #_{{author_id}}
-			#rel = noopener noreferrer
-			. {{author_name}}
-		>br
 		>div
-			>a.button.buttondw
+			>a
+				#href = https://www.pixiv.net/artworks/{{id}}
+				#target = #_{{id}}
+				#rel = noopener noreferrer
+				.{{title}}
+			. /
+			>a
+				#href = https://www.pixiv.net/users/{{author_id}}
+				#target = #_{{author_id}}
+				#rel = noopener noreferrer
+				. {{author_name}}
+		>div
+			>a.button.buttondw.bg-green-400
 				. mp4
 				#href={{url}}
 				#download
-				#style=background:#66BB6A;
 			>span.dldot
-			>a.button.buttondw.gifdl
+			>a.button.buttondw.bg-blue-500
 				. gif (large)
 				#download
 				#href=/api/gif/{{id}}/large
-			>a.button.buttondw.gifdl
+			>a.button.buttondw.bg-blue-500
 				. gif (medium)
 				#download
 				#href=/api/gif/{{id}}/medium
-			>a.button.buttondw.gifdl
+			>a.button.buttondw.bg-blue-500
 				. gif (small)
 				#download
 				#href=/api/gif/{{id}}/small
