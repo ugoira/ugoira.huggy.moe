@@ -1,11 +1,11 @@
->figure.illust
+>figure.mx-auto.mt-3
 	>div
 		#id=s{{sid}}
 		#style={{Style}}
 		-video
     >span
     >figcaption
-		>div
+		>div.mt-1.mb-1
 			>a
 				#href = https://www.pixiv.net/artworks/{{id}}
 				#target = #_{{id}}
@@ -36,8 +36,10 @@
 				#download
 				#href=/api/gif/{{id}}/small
 		>div
-			>a.button.buttontg
+			>a.button.buttondw.buttontg
 				. open in telegram
 				#href=tg://resolve?domain=Pixiv_bot&&start={{id}}
+			>a.button.buttondw.buttontg
+				. share
 		>p
 			.{{tags_joined}}

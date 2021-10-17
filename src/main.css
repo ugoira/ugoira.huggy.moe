@@ -1,19 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 a {
-  text-decoration: none;
+  @apply no-underline text-primary;
 }
 
 .footer {
   color: rgb(200, 205, 219);
 }
 textarea {
-  @apply mx-auto resize;
   max-width: 550px;
-  width: 100%;
   min-height: 11rem;
-  background: rgba(0, 0, 0, 0);
+  @apply mx-auto w-full resize;
 }
 .button {
   @apply inline-block text-white px-2 py-2 my-1 rounded transition duration-200 ease-in-out;
@@ -28,22 +27,24 @@ textarea {
 
 .placeholder {
   background: rgba(0, 0, 0, 0.12);
-  height: 500px;
-  width: 500px;
+  height: 30rem;
+  width: 30rem;
   overflow: hidden;
   position: relative;
   margin: auto;
   cursor: progress;
 }
+
 .placeholder::after {
   -webkit-animation: loading 1.5s infinite;
   animation: loading 1.5s infinite;
   content: "";
   height: 100%;
   left: 0;
-  position: absolute;
   right: 0;
   top: 0;
+  bottom: 0;
+  position: absolute;
   transform: translateX(-100%);
   z-index: 1;
   background: linear-gradient(
@@ -52,10 +53,6 @@ textarea {
     hsla(0, 0%, 100%, 0.3),
     hsla(0, 0%, 100%, 0)
   );
-}
-.illust {
-  max-width: 600px;
-  margin: auto;
 }
 #download {
   background-color: #43a047;
@@ -104,6 +101,7 @@ textarea {
     max-width: 99%;
   }
 }
+
 @-webkit-keyframes loading {
   to {
     transform: translateX(100%);

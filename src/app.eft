@@ -14,7 +14,7 @@
 				#role = button
 				. {{ convertButtonText=Convert}}
 				@click = getIllusts:{{input}}
-			>a.button.bg-sprimary
+			>a.px-10.button.bg-sprimary
 				#id=download
 				#role = button
 				.Download all mp4

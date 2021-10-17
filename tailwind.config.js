@@ -1,6 +1,10 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+  purge: [
+    './src/**/*.eft',
+    './src/**/main.css',
+    './index.html',
+  ],
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
