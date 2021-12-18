@@ -1,6 +1,6 @@
-# ugoira.huggy.moe
+# ugoira.huggy.moe (legacy version)
 
-Link: [ugoira.huggy.moe](https://ugoira.huggy.moe)
+Link: [ugoira.huggy.moe/legacy](https://ugoira.huggy.moe/legacy/)
 
 Youtube: [[1](https://www.youtube.com/watch?v=RaUQsLWaqfI)] [[2](https://www.youtube.com/watch?v=6CzEqOhrKCA)]
 
@@ -11,9 +11,9 @@ https://user-images.githubusercontent.com/6511667/127163644-2213e8a4-ca71-46bc-9
 > The easiest way to convert pixiv ugoira to mp4  
 > 转换 pixiv 动图的最简单方法  
 > 轉換 pixiv 動圖的最簡單方法  
-> pixiv の動いらを変換する最も簡単な方法
+> pixivの動いらを変換する最も簡単な方法
 
-build with [ef.js](https://github.com/TheNeuronProject/ef.js), [tailwind](https://tailwindcss.com/) and [vite.js](https://vitejs.dev)
+build with [ef.js](https://github.com/TheNeuronProject/ef.js) and [vite.js](https://vitejs.dev)
 
 # dev
 
