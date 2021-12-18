@@ -1,6 +1,6 @@
 # ugoira.huggy.moe (legacy version)
 
-Link: [ugoira.huggy.moe/legacy](https://ugoira.huggy.moe/legacy/)
+Link: [ugoira.huggy.moe](https://ugoira.huggy.moe) | [/legacy](https://ugoira.huggy.moe/legacy/)
 
 Youtube: [[1](https://www.youtube.com/watch?v=RaUQsLWaqfI)] [[2](https://www.youtube.com/watch?v=6CzEqOhrKCA)]
 
@@ -25,8 +25,6 @@ build with [ef.js](https://github.com/TheNeuronProject/ef.js) and [vite.js](http
     open dist
     yarn serve
 
-# Server
-[my-telegram-bots/Pixiv_bot](https://github.com/my-telegram-bots/Pixiv_bot)
 # License
 MIT
 
